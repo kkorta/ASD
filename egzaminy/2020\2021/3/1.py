@@ -27,28 +27,10 @@ def mr(X):
             max_ = t_back[i] + t_forward[i] - 1
             index = i
 
-
     solution = [0] * max_
-    if index == 0:
-        i = 0
-        while p_forward[index] != -1:
-            solution[i] = X[index]
-            i += 1
-            index = p_forward[index]
 
-        solution[max_ - 1] = X[index]
-        return solution
-
-    elif index == n - 1:
-        i = n - 1
-        while p_back[index] != -1:
-            solution[i] = X[index]
-            i -= 1
-            index = p_back[index]
-
-        solution[0] = X[index]
-        return solution
-
+    if index == 0 or index == n - 1:
+        return X
     else:
         index1 = t_back[index] - 1
         solution[index1] = X[index]
