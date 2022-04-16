@@ -8,10 +8,14 @@ def cost(i):
 def select_buildings(T, p):
     n = len(T)
     parent = [-1] * n
+    for i in range(n):
+        T[i] = (T[i][0], T[i][1], T[i][2], T[i][3], i)
     T.sort(key=lambda x: x[2])
+
+
     for i in range(n - 1):
         for j in range(i + 1, n):
-            if T[i][2] <= T[j][1]:
+            if T[i][2] < T[j][1]:
                 parent[j] = i
 
     tab = [[0 for _ in range(p)] for _ in range(n)]
@@ -25,6 +29,7 @@ def select_buildings(T, p):
                 tab[i][j] = max(tab[i - 1][j], students(T[i]) + tab[parent[i]][j - cost(T[i])])
             else:
                 tab[i][j] = tab[i - 1][j]
+
 
     return get_solution(tab, p, n, parent, T)
 
@@ -45,7 +50,7 @@ def get_solution(tab, p, n, parent, T):
 
         elif tab[parent[height]][index] == tab[height][index] - students(T[height]):
 
-            solution.append(height)
+            solution.append(T[height][4])
             height = parent[height]
 
         elif tab[height][index] == tab[height][index - 1]:
@@ -54,13 +59,13 @@ def get_solution(tab, p, n, parent, T):
         elif index - cost(T[height]) >= 0:
             if tab[height][index] == tab[height][index - cost(T[height])] + students(T[height]):
                 index -= cost(T[height])
-                solution.append(height)
+                solution.append(T[height][4])
 
 
     if index > 0:
-        solution.append(height)
+        solution.append(T[height][4])
 
-    solution.reverse()
+    solution.sort()
 
     return solution
 
@@ -79,8 +84,8 @@ if __name__ == '__main__':
     C3 = 10
 
     P4 = [(1, 8, 12, 5), (4, 7, 8, 2), (3, 2, 3, 6), (9, 7, 8, 5), (8, 21, 22, 8), (5, 4, 7, 10), (1, 21, 24, 10),
-           (7, 14, 16, 1)]
-    R4 = [0, 2, 4, 5, 7]#zła odpowiedź? pokazuje 44 a mozna zdobyc 50
+            (7, 14, 16, 1)]
+    R4 = [0, 2, 4, 5, 7]
     C4 = 32
 
     print(select_buildings(P1, C1))
