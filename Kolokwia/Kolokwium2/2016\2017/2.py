@@ -1,4 +1,4 @@
-def max_sum(T):
+def goodThief(T):
     n = len(T)
     if n == 0:
         return []
@@ -38,5 +38,5 @@ def get_solution(n, res):
 
 
 t = [1000, 1, 300, 100000, 1, 1, 120, 37, 1, 10, 20000, 1]
-print(max_sum(t))
+print(goodThief(t))
 
