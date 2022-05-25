@@ -11,7 +11,6 @@ def dijkstra(G, s, distance):
         dist, u = pq.get()
 
         for i in G[u]:
-            print(i)
             v, weight = i[0], i[1]
             if not visited[v]:
                 if distance[v] > distance[u] + weight:
